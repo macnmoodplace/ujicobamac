@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mac ’n Mood – Fix Your Mood with Every Mac</title>
+<title>Mac ’n Mood – Pasta makaroni pengembali mood</title>
 <meta name="description" content="Makaroni bolognese dan carbonara dengan lapisan krim lumer, praktis dalam wadah aluminium foil.">
 <link rel="icon" href="foto/makaroni.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,7 @@
 :root{
   --bg:#FFF6E2; --ink:#3B1218; --muted:#7A5A4F;
   --red:#D52333;      /* merah logo */
-  --mac:#F1D190;      /* kuning makaroni */
+  --mac:#F0D090;      /* kuning makaroni */
   --card:#FFFFFF; --line:#EBD7A8;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -73,7 +73,7 @@ nav ul a:hover{color:var(--red)}
 .video iframe{width:100%;height:100%;border:0}
 
 .quote{background:var(--card);border-left:6px solid var(--mac);border-radius:14px;padding:22px}
-.quote p{margin-bottom:12px}
+.quote p{margin-bottom:12px;overflow-wrap:anywhere}
 .quote small{color:var(--muted)}
 
 .order{background:var(--red);color:#fff;border-radius:32px;padding:40px 28px}
@@ -188,7 +188,7 @@ dialog img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
       <div class="quote reveal"><p>Tulis testimoni kedua di sini.</p><small>Nama, status</small></div>
       <div class="quote reveal"><p>Tulis testimoni ketiga di sini.</p><small>Nama, status</small></div>
     </div>
-    <p class="reveal" style="margin-top:28px"><a class="btn" id="testiBtn" href="#" target="_blank" rel="noopener" hidden>Tulis testimonimu</a></p>
+    <p class="reveal" style="margin-top:28px;display:flex;gap:12px;flex-wrap:wrap"><a class="btn" id="testiBtn" href="#" target="_blank" rel="noopener" hidden>Tulis testimonimu</a><button class="btn ghost" id="testiMore" hidden>Lihat lebih banyak</button></p>
   </div>
 </section>
 
@@ -322,13 +322,16 @@ async function muatTesti(){
     const items=rows.slice(1).filter(r=>r[iT]&&r[iT].trim()&&(iOK<0||/^(ya|y|ok|1|true)/i.test((r[iOK]||'').trim()))).reverse();
     if(!items.length)return;
     const box=document.getElementById('testiGrid');box.innerHTML='';
-    items.slice(0,12).forEach(r=>{
+    items.slice(0,30).forEach(r=>{
       const d=document.createElement('div');d.className='quote reveal';
       const p=document.createElement('p');p.textContent=r[iT].trim();
       const s=document.createElement('small');
       s.textContent=[iN>=0?r[iN]:'',iS>=0?r[iS]:''].filter(x=>x&&x.trim()).join(', ')||'Pembeli';
       d.append(p,s);box.appendChild(d);io.observe(d);
     });
+    const els=[...box.children],more=document.getElementById('testiMore');
+    if(els.length>6){els.slice(6).forEach(e=>e.hidden=true);more.hidden=false;
+      more.onclick=()=>{els.forEach(e=>e.hidden=false);more.hidden=true}}
   }catch(e){}
 }
 muatTesti();
