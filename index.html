@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mac ’n Mood – Pasta makaroni pengembali mood</title>
+<title>Mac ’n Mood – Fix Your Mood with Every Mac</title>
 <meta name="description" content="Makaroni bolognese dan carbonara dengan lapisan krim lumer, praktis dalam wadah aluminium foil.">
 <link rel="icon" href="foto/makaroni.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,10 +13,11 @@
 :root{
   --bg:#FFF6E2; --ink:#3B1218; --muted:#7A5A4F;
   --red:#D52333;      /* merah logo */
-  --mac:#F0D090;      /* kuning makaroni */
+  --mac:#F1D190;      /* kuning makaroni */
   --card:#FFFFFF; --line:#EBD7A8;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth;scroll-padding-top:70px}
 body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.65}
 h1,h2,h3,.btn,nav b{font-family:'Fredoka',system-ui,sans-serif}
@@ -49,11 +50,11 @@ nav ul a:hover{color:var(--red)}
 .hero p{color:var(--muted);max-width:46ch;margin-bottom:26px}
 .btns{display:flex;gap:12px;flex-wrap:wrap}
 .photo{position:relative}
-.logo-card{aspect-ratio:1/1;border-radius:36px 36px 140px 36px;border:3px solid var(--red);box-shadow:10px 10px 0 var(--mac);background:#fff;display:grid;place-items:center;padding:12%}
-.logo-card img{width:100%;display:block;transition:transform .4s}
+.logo-card{display:grid;place-items:center;padding:6%}
+.logo-card img{width:100%;max-width:460px;display:block;transition:transform .4s}
 .logo-card:hover img{transform:rotate(-4deg) scale(1.04)}
 .mac{position:absolute;width:64px;will-change:transform}
-.mac.a{top:-22px;right:8%}.mac.b{bottom:12%;left:-26px;width:52px}.mac.c{bottom:-26px;right:22%;width:44px}
+.mac.a{top:-8px;right:4%}.mac.b{bottom:8%;left:-10px;width:52px}.mac.c{bottom:-12px;right:18%;width:44px}
 .load>*{opacity:0;transform:translateY(24px);animation:in .7s ease forwards}
 .load>*:nth-child(2){animation-delay:.1s}.load>*:nth-child(3){animation-delay:.2s}.load>*:nth-child(4){animation-delay:.3s}
 @keyframes in{to{opacity:1;transform:none}}
@@ -97,6 +98,16 @@ dialog img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
 .dlg-body h3{font-size:1.7rem;color:var(--red);margin-bottom:8px}
 .dlg-body .row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
 
+.shots{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.shot{background:#fff;padding:10px 10px 14px;border:2px solid var(--line);border-radius:18px;transition:rotate .3s,translate .3s}
+.shot:nth-child(odd){rotate:-1.4deg}.shot:nth-child(even){rotate:1.4deg}
+.shot:hover{rotate:0deg;translate:0 -4px}
+.shot img,.shot .ph{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block}
+.shot img{cursor:zoom-in}
+.shot .ph{background:var(--mac);display:grid;place-items:center;text-align:center;padding:12px;font-family:'Fredoka',sans-serif;color:var(--ink)}
+.shot figcaption{margin-top:10px;font-size:.92rem;color:var(--muted)}
+#lb{max-width:720px}
+#lb img{aspect-ratio:auto;object-fit:contain;max-height:75vh;background:#000}
 @media(max-width:700px){nav .wrap{flex-wrap:wrap;height:auto;padding:8px 20px}nav ul{width:100%}nav .slogan{font-size:.82rem}}
 
 @media(prefers-reduced-motion:reduce){
@@ -113,6 +124,7 @@ dialog img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
     <ul>
       <li><a href="#produk">Produk</a></li>
       <li><a href="#video">Proses</a></li>
+      <li><a href="#dokumentasi">Pameran</a></li>
       <li><a href="#testimoni">Testimoni</a></li>
       <li><a href="#order">Order</a></li>
       <li><a href="#sosmed">Sosmed</a></li>
@@ -159,15 +171,24 @@ dialog img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
   </div>
 </section>
 
+<section id="dokumentasi">
+  <div class="wrap">
+    <h2 class="reveal">Dokumentasi pameran</h2>
+    <p class="lead reveal">Keseruan Mac ’n Mood saat bertemu langsung dengan para pengunjung. Klik foto untuk memperbesar.</p>
+    <div class="shots" id="galGrid"></div>
+  </div>
+</section>
+
 <section id="testimoni">
   <div class="wrap">
     <h2 class="reveal">Kata mereka</h2>
     <p class="lead reveal">Tanggapan dari orang yang sudah mencoba.</p>
-    <div class="grid">
+    <div class="grid" id="testiGrid">
       <div class="quote reveal"><p>Tulis testimoni pertama di sini. Singkat dan jujur lebih meyakinkan.</p><small>Nama, status (mis. teman kelas)</small></div>
       <div class="quote reveal"><p>Tulis testimoni kedua di sini.</p><small>Nama, status</small></div>
       <div class="quote reveal"><p>Tulis testimoni ketiga di sini.</p><small>Nama, status</small></div>
     </div>
+    <p class="reveal" style="margin-top:28px"><a class="btn" id="testiBtn" href="#" target="_blank" rel="noopener" hidden>Tulis testimonimu</a></p>
   </div>
 </section>
 
@@ -213,15 +234,29 @@ dialog img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
   </div>
 </dialog>
 
+<dialog id="lb"><img id="lbImg" src="" alt=""><div class="dlg-body" style="padding:14px 22px"><p id="lbCap"></p></div></dialog>
+
 <script>
 /* ====== GANTI ISI DI SINI ====== */
 const WA_NUMBER = "6281234567890"; // format 62, tanpa 0 di depan dan tanpa +
+
+/* Testimoni otomatis dari Google Form (lihat panduan). Kosongkan = pakai testimoni manual di atas */
+const FORM_URL = "https://forms.gle/FtqhWodsuo6XSMBp6";   // link Google Form untuk mengisi testimoni
+const TESTI_CSV = "";  // link CSV hasil Publish to web dari Google Sheet
 
 const PRODUK = [
   { nama:"Carbonara", harga:"Rp00.000", foto:"foto/carbonara.jpg",
     desc:"Makaroni dengan saus carbonara yang kaya rasa dan creamy, ditaburi topping gurih, keju, dan lada hitam. Sesuaikan deskripsi ini dengan resep aslimu." },
   { nama:"Bolognese", harga:"Rp00.000", foto:"foto/bolognese.jpg",
     desc:"Makaroni dengan saus bolognese yang gurih dan daging cincang, ditutup lapisan krim lembut yang lumer. Sesuaikan deskripsi ini dengan resep aslimu." }
+];
+
+/* Foto dokumentasi pameran: taruh file di folder foto/ dengan nama sesuai di bawah */
+const DOKUMENTASI = [
+  { foto:"foto/pameran1.jpg", cap:"Suasana booth Mac ’n Mood" },
+  { foto:"foto/pameran2.jpg", cap:"Pengunjung mencicipi produk" },
+  { foto:"foto/pameran3.jpg", cap:"Tim kami di pameran" },
+  { foto:"foto/pameran4.jpg", cap:"Produk siap disajikan" }
 ];
 
 /* ====== KODE (tidak perlu diubah) ====== */
@@ -251,10 +286,52 @@ orderForm.addEventListener('submit',e=>{
   window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`,'_blank');
 });
 
+const gal = document.getElementById('galGrid'), lb = document.getElementById('lb');
+DOKUMENTASI.forEach(d=>{
+  const f = document.createElement('figure'); f.className = 'shot reveal';
+  const im = new Image(); im.src = d.foto; im.alt = d.cap; im.loading = 'lazy';
+  im.onerror = ()=>{ im.remove(); f.insertAdjacentHTML('afterbegin','<div class="ph">Foto pameran segera hadir</div>'); };
+  im.onclick = ()=>{ lbImg.src = d.foto; lbImg.alt = d.cap; lbCap.textContent = d.cap; lb.showModal(); };
+  const c = document.createElement('figcaption'); c.textContent = d.cap;
+  f.append(im,c); gal.appendChild(f);
+});
+lb.addEventListener('click',()=>lb.close());
+
 const io = new IntersectionObserver(es=>es.forEach(en=>{
   if(en.isIntersecting){ en.target.classList.add('show'); io.unobserve(en.target); }
 }),{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+
+/* Testimoni otomatis */
+function parseCSV(t){const r=[];let row=[],f='',q=false;for(let i=0;i<t.length;i++){const c=t[i];
+  if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=false}else f+=c}
+  else if(c=='"')q=true;else if(c==','){row.push(f);f=''}
+  else if(c=='\n'||c=='\r'){if(c=='\r'&&t[i+1]=='\n')i++;row.push(f);r.push(row);row=[];f=''}else f+=c}
+  if(f||row.length){row.push(f);r.push(row)}return r}
+async function muatTesti(){
+  const btn=document.getElementById('testiBtn');
+  if(FORM_URL){btn.href=FORM_URL;btn.hidden=false}
+  if(!TESTI_CSV)return;
+  try{
+    const res=await fetch(TESTI_CSV+(TESTI_CSV.includes('?')?'&':'?')+'t='+Date.now());
+    const rows=parseCSV(await res.text()).filter(r=>r.some(x=>x.trim()));
+    const h=rows[0].map(x=>x.toLowerCase());
+    const idx=k=>h.findIndex(x=>k.some(w=>x.includes(w)));
+    const iN=idx(['nama']),iT=idx(['testimoni','ulasan','komentar','pesan']),iS=idx(['status','sebagai']),iOK=idx(['tampilkan']);
+    const items=rows.slice(1).filter(r=>r[iT]&&r[iT].trim()&&(iOK<0||/^(ya|y|ok|1|true)/i.test((r[iOK]||'').trim()))).reverse();
+    if(!items.length)return;
+    const box=document.getElementById('testiGrid');box.innerHTML='';
+    items.slice(0,12).forEach(r=>{
+      const d=document.createElement('div');d.className='quote reveal';
+      const p=document.createElement('p');p.textContent=r[iT].trim();
+      const s=document.createElement('small');
+      s.textContent=[iN>=0?r[iN]:'',iS>=0?r[iS]:''].filter(x=>x&&x.trim()).join(', ')||'Pembeli';
+      d.append(p,s);box.appendChild(d);io.observe(d);
+    });
+  }catch(e){}
+}
+muatTesti();
 
 /* Makaroni di hero bergerak pelan mengikuti scroll */
 if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
